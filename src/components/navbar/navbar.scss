@@ -24,9 +24,7 @@
             cursor: pointer;
             transition: all ease-in 0.3s;
     
-            &:last-child {
-                border-bottom: 1px solid rgba(128, 128, 128, 0.32);
-            }
+
     
             &:hover {
                 background: rgba(225, 225, 225, 0.793);
@@ -53,9 +51,9 @@
             cursor: pointer;
             transition: all ease-in 0.3s;
     
-            &:last-child {
-                border-bottom: 1px solid rgba(128, 128, 128, 0.32);
-            }
+            // &:last-child {
+            //     border-bottom: 1px solid rgba(128, 128, 128, 0.32);
+            // }
     
             &:hover {
                 background: rgba(225, 225, 225, 0.793);
@@ -64,7 +62,12 @@
             img {
                 width: 40px;
                 height: 40px;
+         
             }
+        }
+        .setting-icon {
+            width: 30px;
+            height: 30px;
         }
     }
 }

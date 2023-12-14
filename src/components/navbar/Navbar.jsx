@@ -4,8 +4,14 @@ import group from './../../../public/group.png';
 import learn from './../../../public/learn.png';
 import chat from './../../../public/chat.png';
 import account from './../../../public/account.png';
+import setting from './../../../public/setting.png';
 import './navbar.scss';
+// import WorkSection from '../work-section/WorkSection';
+import SettingModal from '../settingModal/SettingModal';
 function Navbar() {
+
+    const [ModalActive, setModalActive] = React.useState(true)
+
     return ( 
         <>
             <div>
@@ -30,12 +36,15 @@ function Navbar() {
                     </div>            
 
                     <div className="navbar-bottom">
-
+                            <button onClick={() => setModalActive(true)}>
+                                <img src={setting} className='setting-icon' alt="home-icon" />
+                            </button>
                             <button>
                                 <img src={account} alt="home-icon" />
                             </button>
                     </div>
                 </div>
+                <SettingModal active={ModalActive} setActive={setModalActive}></SettingModal>
             </div>
         </>
      );
