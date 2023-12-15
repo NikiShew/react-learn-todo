@@ -27,7 +27,22 @@
         opacity: 0;
         border: 1px solid rgba(128, 128, 128, 0.32);
         .modal-navbar-info {
+            display: flex;
             height: 100%;
+
+            .modal-work {
+                overflow-y: scroll;
+                width: 100%;
+                padding: 20px;
+
+                h1 {
+                    font-family: 'Manrope', sans-serif;
+                }
+
+
+            }
+
+
             .modal-navbar {
                 display: flex;
                 flex-direction: column;
@@ -75,7 +90,7 @@
     cursor: pointer;
     position: absolute;
     top: 15px;
-    right: 15px;
+    right: 25px;
     width: 15px;
     height: 15px;
     opacity: 0.3;
@@ -85,3 +100,11 @@
         opacity: 1;
     }
 }
+
+// .dark {
+//     background-color: black;
+// }
+
+// .light {
+//     background-color: #f2f3f8;
+// }

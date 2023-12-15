@@ -10,7 +10,7 @@ import './navbar.scss';
 import SettingModal from '../settingModal/SettingModal';
 function Navbar() {
 
-    const [ModalActive, setModalActive] = React.useState(true)
+    const [ModalActive, setModalActive] = React.useState(false)
 
     return ( 
         <>

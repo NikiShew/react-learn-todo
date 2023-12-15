@@ -1,0 +1,30 @@
+
+//для темы
+// .container .dark {
+//     background-color: black;
+// }
+
+.two-themes {
+    padding: 30px;
+    gap: 20px;
+
+    div {
+        padding-bottom: 30px;
+        label {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+            input {
+                width: 17px;
+                height: 17px;
+                border-radius: 5px;
+            }
+            h3 {
+                font-family: 'Manrope', sans-serif;
+            }
+            
+            
+        }
+    }
+}
