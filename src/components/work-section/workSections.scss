@@ -1,3 +1,132 @@
 .workSection{
     background-color: #f2f3f8;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+
+
+    h2 {
+        font-family: 'Manrope', sans-serif;
+        padding-top: 10px;
+        padding-bottom: 30px;
+        font-size: 19px;
+        span {
+            width: 25px;
+            height: 25px;
+            background-color: #56CEA2;
+            display: inline-block;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            padding-top: 1px;
+            padding-bottom: 0;
+            border-radius: 50%;
+        }
+    }
+
+    div {
+        text-align: start;
+        display: inline-block;
+        width: 30%;
+    }
+
+    .addTodo {
+        width: 50%;
+        font-family: 'Manrope', sans-serif;
+        text-transform: uppercase;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid rgba(128, 128, 128, 0.32);
+        color: rgba(0, 0, 0, 0.417);
+        background: none;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        transition: 0.3s all;
+        opacity: 1;
+        &:hover {
+            color: black;
+            border: 1px solid black;
+        }
+
+        span {
+            font-size: 20px;
+        }
+    }
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding:15px;
+        width: 50% ;
+        font-family: 'Manrope', sans-serif;
+        background: none;
+        border: 1px solid rgba(128, 128, 128, 0.32);
+        height: 100px;
+
+        input {
+            height: 30px;
+            padding: 0 10px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 15px;
+            background: none;
+            border: 1px solid rgba(128, 128, 128, 0.32);
+            border-radius: 5px;
+        }
+
+        button {
+            display: inline-block;
+            border-radius: 5px;
+            border: 1px solid rgba(128, 128, 128, 0.32);
+            height: 30px;
+            color: rgb(128, 124, 124);
+            font-family: 'Manrope', sans-serif;
+            background-color: inherit;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s all ;
+            &:hover {
+                color: black;
+                border: 1px solid black;
+            }
+
+        }
+    }
+    
+    .inputOpacity {
+        opacity: 0;
+    }
+
+    .todos {
+        padding-top: 30px;
+        min-width: 80%;
+        ul { 
+            
+            
+            li{
+                border-left: 4px solid black !important;
+                border-radius: 5px;
+                width: 100%;
+                min-height: 150px;
+                list-style: none;
+                border: 1px solid rgba(128, 128, 128, 0.32);
+                padding: 20px;
+                margin-bottom: 5%;
+            }
+
+        }
+    }
+}
+
+.none {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+// display: none;
 }

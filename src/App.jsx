@@ -11,8 +11,8 @@ function App() {
     <>
       <Header />
       <div className='workSections'>
-        <Navbar/>
-        <WorkSection/>
+        <Navbar className='navbar'/>
+        <WorkSection className='workSection'/>
       </div>
     </>
   )

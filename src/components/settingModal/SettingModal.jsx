@@ -6,6 +6,8 @@ import Checkbox from './checkbox/Checkbox';
 import './styles-light.scss';
 import './settingModal.scss';
 function SettingModal({active, setActive, children}) {
+
+
     const [activeButton, setActiveButton] = React.useState(null);
     const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
     const handleButtonClick = (buttonName) => {
