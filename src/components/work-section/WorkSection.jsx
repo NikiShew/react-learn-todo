@@ -4,7 +4,9 @@ function WorkSection() {
     let [todos, setTodos] = React.useState([]);
     let [inputBlock, setInputBlock] = React.useState('inputOpacity');
     let [value, setValue] = React.useState('');
-    let [noBtnAddTodo, setNoBtnAddTodo] = React.useState("addTodo")
+    let [noBtnAddTodo, setNoBtnAddTodo] = React.useState("addTodo");
+
+
     function setOpacity() {
         setInputBlock('input');
         // console.log(inputBlock);
@@ -16,7 +18,7 @@ function WorkSection() {
         // console.log(event.target.value);
     }
 
-    function addTodo() {
+    function handleAddTodo() {
         if(value != "") {
             setTodos([...todos, value]);
             setInputBlock('none');
@@ -27,21 +29,36 @@ function WorkSection() {
         }
     }
 
+    const handleKeyPress = (event) => {
+        const keyCode = event.keyCode || event.which;
+        if (keyCode === 13) {
+          handleAddTodo();
+        }
+      };
+
     return ( 
         <>
             <div className='workSection'>
 
                     <div className="lesson_board">
-                        <h2>Lesson Board <span className='todo_length'>3</span></h2>
+                        <h2>Lesson Board <span className='todo_length'>{todos.length}</span></h2>
                         <button onClick={setOpacity} className={noBtnAddTodo}><span>+</span> Create new</button>
                         <div className={inputBlock}>
-                                <input type="text" value={value} onChange={setV} placeholder='drink tea....' />
-                                <button onClick={addTodo}>add</button>
+                                <input type="text" value={value} onChange={setV} placeholder='drink tea....' onKeyPress={handleKeyPress}/>
+                                <button onClick={handleAddTodo}>add</button>
                         </div>
                         <div className="todos">
                             <ul>
                                 {todos.map((item, index) => (
-                                    <li className='todo' key={index}>{item}</li>
+                            
+
+                                        <li className='todo' key={index}>
+                                            <h3 className='todo-info'>{item}</h3>
+                                            <div className="btn-bck">
+                                                <button className='delete'>finish</button>
+                                                <button className='in_process'>In Process</button>
+                                            </div>
+                                        </li>
                                 ))}
                             </ul>
                         </div>
