@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './workSections.scss';
+import LiItem from './Li-Item';
 function WorkSection() {
     let [todos, setTodos] = React.useState([]);
+    let [todoInProgress, setTodoInProgress] = React.useState([]);
     let [inputBlock, setInputBlock] = React.useState('inputOpacity');
     let [value, setValue] = React.useState('');
     let [noBtnAddTodo, setNoBtnAddTodo] = React.useState("addTodo");
+
 
 
     function setOpacity() {
@@ -15,7 +18,6 @@ function WorkSection() {
 
     function setV (event) {
         setValue(event.target.value);
-        // console.log(event.target.value);
     }
 
     function handleAddTodo() {
@@ -23,10 +25,25 @@ function WorkSection() {
             setTodos([...todos, value]);
             setInputBlock('none');
             setNoBtnAddTodo('addTodo');
-            // console.log(todos);
-            // console.log(value);
             setValue('')
         }
+    }
+
+    function addToProgress(item) {
+        console.log(todoInProgress)
+        let itemLowerCase = item.toLowerCase();
+        if(!todoInProgress.includes(itemLowerCase)) {
+            
+            setTodoInProgress([...todoInProgress, itemLowerCase])
+            setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
+        }
+        else {
+            console.log('Такое задание уже выполняется')
+        }
+    }
+
+    function deleteTodo(item) {
+        setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
     }
 
     const handleKeyPress = (event) => {
@@ -50,23 +67,22 @@ function WorkSection() {
                         <div className="todos">
                             <ul>
                                 {todos.map((item, index) => (
-                            
-
-                                        <li className='todo' key={index}>
-                                            <h3 className='todo-info'>{item}</h3>
-                                            <div className="btn-bck">
-                                                <button className='delete'>finish</button>
-                                                <button className='in_process'>In Process</button>
-                                            </div>
-                                        </li>
+                                        <LiItem  key={item} item={item}>
+                                            <button className='in_process' onClick={() => addToProgress(item)}>In Process</button>
+                                            <button className='delete' onClick={() => deleteTodo(item)}>delete</button>
+                                        </LiItem>
                                 ))}
                             </ul>
                         </div>
                     </div>
-                    <div className="in_procces">
-                        <h2>In Process</h2>
+                    <div className="in_process">
+                        <h2>In Process <span className='todo_length'>{todoInProgress.length}</span></h2>
                         <div className="todos">
-                            
+                                <ul>
+                                    {todoInProgress.map((item, index) => (
+                                        <LiItem key={index} item={item}/>
+                                    ))}
+                                </ul>
                         </div>
                     </div>
                     <div className="finish">
@@ -81,3 +97,5 @@ function WorkSection() {
 }
 
 export default WorkSection;
+//setTodoInProgress={setTodoInProgress(item)}
+//setTodoInProgress={setTodoInProgress(item)}
