@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './workSections.scss';
+import CurrentDate from './CurrentDate';
 export default function LiItem(props) {
 
     
@@ -10,6 +11,7 @@ export default function LiItem(props) {
             <button className='finish'>finish</button>
             {/* <button className='in_process'>In Process</button> */}
             {props.children}
+            <CurrentDate />
         </div>
     </li>
 )

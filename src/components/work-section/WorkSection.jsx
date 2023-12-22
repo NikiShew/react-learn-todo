@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useRef, useEffect } from 'react';
 import './workSections.scss';
+import Date from './CurrentDate';
+
 import LiItem from './Li-Item';
 function WorkSection() {
     let [todos, setTodos] = React.useState([]);
@@ -8,11 +10,18 @@ function WorkSection() {
     let [value, setValue] = React.useState('');
     let [noBtnAddTodo, setNoBtnAddTodo] = React.useState("addTodo");
 
+    const inputRef = useRef(null);
 
+    let date = new Date();
+
+    useEffect(() => {
+        if (inputBlock === 'input') {
+          inputRef.current.focus();
+        }
+      }, [inputBlock]);
 
     function setOpacity() {
         setInputBlock('input');
-        // console.log(inputBlock);
         setNoBtnAddTodo('none');
     }
 
@@ -21,11 +30,13 @@ function WorkSection() {
     }
 
     function handleAddTodo() {
-        if(value != "") {
-            setTodos([...todos, value]);
+        if(value != "" && !todos.includes(value.toLocaleLowerCase())) {
+            let valueLowerCase = value.toLowerCase();
+            setTodos([...todos, valueLowerCase]);
             setInputBlock('none');
             setNoBtnAddTodo('addTodo');
-            setValue('')
+            setValue('');
+            console.log(date)
         }
     }
 
@@ -61,7 +72,7 @@ function WorkSection() {
                         <h2>Lesson Board <span className='todo_length'>{todos.length}</span></h2>
                         <button onClick={setOpacity} className={noBtnAddTodo}><span>+</span> Create new</button>
                         <div className={inputBlock}>
-                                <input type="text" value={value} onChange={setV} placeholder='drink tea....' onKeyPress={handleKeyPress}/>
+                                <input ref={inputRef} type="text" value={value} onChange={setV} placeholder='drink tea....' onKeyPress={handleKeyPress}/>
                                 <button onClick={handleAddTodo}>add</button>
                         </div>
                         <div className="todos">
