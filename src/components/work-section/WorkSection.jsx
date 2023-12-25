@@ -21,6 +21,36 @@ function WorkSection() {
         }
     }, [inputBlock]);
 
+
+    useEffect(() => {
+        // Загружаем данные из локального хранилища при загрузке компонента
+        const storedTodos = localStorage.getItem('todos');
+        const storedTodoInProgress = localStorage.getItem('todoInProgress');
+        const storedFinishTodo = localStorage.getItem('finishTodo');
+
+        if (storedTodos) {
+            setTodos(JSON.parse(storedTodos));
+        }
+
+        if (storedTodoInProgress) {
+            setTodoInProgress(JSON.parse(storedTodoInProgress));
+        }
+
+        if (storedFinishTodo) {
+            setFinishTodo(JSON.parse(storedFinishTodo));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('todoInProgress', JSON.stringify(todoInProgress));
+    }, [todoInProgress]);
+
+    useEffect(() => {
+
+        localStorage.setItem('finishTodo', JSON.stringify(finishTodo));
+    }, [finishTodo]);
+
+
     function setOpacity() {
         setInputBlock('input');
         setNoBtnAddTodo('none');
@@ -31,43 +61,88 @@ function WorkSection() {
     }
 
     function handleAddTodo() {
-        if (value != "" && !todos.includes(value.toLocaleLowerCase())) {
-            let valueLowerCase = value.toLowerCase();
-            setTodos([...todos, valueLowerCase]);
+        // if (value != "" && !todos.includes(value.toLocaleLowerCase())) {
+        //     let valueLowerCase = value.toLowerCase();
+        //     setTodos([...todos, valueLowerCase]);
+        //     setInputBlock('none');
+        //     setNoBtnAddTodo('addTodo');
+        //     setValue('');
+        //     localStorage.setItem('todos', JSON.stringify(newTodos));
+        // }
+        if (value !== "" && !todos.includes(value.toLowerCase())) {
+            const valueLowerCase = value.toLowerCase();
+            const newTodos = [...todos, valueLowerCase];
+            setTodos(newTodos);
             setInputBlock('none');
             setNoBtnAddTodo('addTodo');
             setValue('');
+            localStorage.setItem('todos', JSON.stringify(newTodos));
         }
     }
 
-    function addToProgress(item) {
-        console.log(todoInProgress)
-        let itemLowerCase = item.toLowerCase();
+    // function addToProgress(item) {
+    //     console.log(todoInProgress)
+    //     let itemLowerCase = item.toLowerCase();
+    //     if (!todoInProgress.includes(itemLowerCase)) {
+
+    //         setTodoInProgress([...todoInProgress, itemLowerCase])
+    //         setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
+    //         setFinishTodo(prevTodos => prevTodos.filter(todo => todo !== item));
+    //     }
+    //     else {
+    //         console.log('Такое задание уже выполняется')
+    //     }
+    // }
+    const addToProgress = (item) => {
+        const itemLowerCase = item.toLowerCase();
         if (!todoInProgress.includes(itemLowerCase)) {
-
-            setTodoInProgress([...todoInProgress, itemLowerCase])
-            setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
-            setFinishTodo(prevTodos => prevTodos.filter(todo => todo !== item));
+            const newInProgress = [...todoInProgress, itemLowerCase];
+            setTodoInProgress(newInProgress);
+            setTodos(prevTodos => prevTodos.filter(todo => todo !== itemLowerCase));
+            setFinishTodo(prevTodos => prevTodos.filter(todo => todo !== itemLowerCase));
+            localStorage.setItem('todoInProgress', JSON.stringify(newInProgress));
+            localStorage.setItem('todos', JSON.stringify(todos.filter(todo => todo !== itemLowerCase)));
+            localStorage.setItem('finishTodo', JSON.stringify(finishTodo.filter(todo => todo !== itemLowerCase)));
+        } else {
+            console.log('Такое задание уже выполняется');
         }
-        else {
-            console.log('Такое задание уже выполняется')
-        }
-    }
+    };
 
-    function todoInFinish(item) {
+    // function todoInFinish(item) {
+    //     if (!finishTodo.includes(item)) {
+    //         console.log(todoInProgress)
+    //         let itemLowerCase = item.toLowerCase();
+    //         setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
+    //         setFinishTodo([...finishTodo, itemLowerCase])
+    //         setTodoInProgress(prevTodos => prevTodos.filter(todo => todo !== item));
+    //     }
+
+    // }
+
+    const todoInFinish = (item) => {
         if (!finishTodo.includes(item)) {
+            const newFinishTodo = [...finishTodo, item];
             setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
-            setFinishTodo([...finishTodo, item])
+            setFinishTodo(newFinishTodo);
             setTodoInProgress(prevTodos => prevTodos.filter(todo => todo !== item));
+            localStorage.setItem('todos', JSON.stringify(todos.filter(todo => todo !== item)));
+            localStorage.setItem('finishTodo', JSON.stringify(newFinishTodo));
+            localStorage.setItem('todoInProgress', JSON.stringify(todoInProgress.filter(todo => todo !== item)));
         }
+    };
 
-    }
 
+    // function deleteTodo(item) {
+    //     setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
+    //     setFinishTodo(prevTodos => prevTodos.filter(todo => todo !== item));
+    // }
 
-    function deleteTodo(item) {
+    const deleteTodo = (item) => {
         setTodos(prevTodos => prevTodos.filter(todo => todo !== item));
         setFinishTodo(prevTodos => prevTodos.filter(todo => todo !== item));
-    }
+        localStorage.setItem('todos', JSON.stringify(todos.filter(todo => todo !== item)));
+        localStorage.setItem('finishTodo', JSON.stringify(finishTodo.filter(todo => todo !== item)));
+    };
 
     const handleKeyPress = (event) => {
         const keyCode = event.keyCode || event.which;
